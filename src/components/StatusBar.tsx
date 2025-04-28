@@ -64,7 +64,7 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
         bottom: viewportHeight ? `${window.innerHeight - viewportHeight}px` : 0,
       }}
     >
-      <div className="flex justify-between items-center max-w-4xl mx-auto w-full">
+      <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-4">
           <div className="flex gap-4">
             <span className="flex items-center">{wordCount} {wordCount === 1 ? 'word' : 'words'}</span>
