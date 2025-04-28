@@ -335,6 +335,7 @@ export function Editor() {
               "text-lg leading-relaxed outline-none whitespace-pre-wrap",
               "transition-all duration-200",
               "placeholder:text-muted-foreground/50 md:text-[20px] text-[18px]",
+              "pb-20",
               {
                 'font-geist': selectedFont === 'geist',
                 'font-space': selectedFont === 'space',

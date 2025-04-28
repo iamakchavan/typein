@@ -56,9 +56,10 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
   return (
     <footer 
       className={cn(
-        "border-t border-border py-2 px-4 text-xs text-muted-foreground bg-muted/10",
+        "border-t border-border py-2 px-4 text-xs text-muted-foreground",
         "fixed left-0 right-0 z-50",
-        "transition-all duration-200"
+        "transition-all duration-200",
+        "bg-background/80 backdrop-blur-sm"
       )}
       style={{
         bottom: viewportHeight ? `${window.innerHeight - viewportHeight}px` : 0,
