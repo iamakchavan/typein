@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 
 interface StatusBarProps {
   wordCount: number;
@@ -10,6 +11,38 @@ interface StatusBarProps {
 }
 
 export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts }: StatusBarProps) {
+  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Handle viewport changes (e.g., when keyboard appears)
+    const handleResize = () => {
+      if (window.visualViewport) {
+        setViewportHeight(window.visualViewport.height);
+        document.documentElement.style.setProperty(
+          '--viewport-height',
+          `${window.visualViewport.height}px`
+        );
+      }
+    };
+
+    // Initial setup
+    handleResize();
+
+    // Add event listeners
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleResize);
+      window.visualViewport.addEventListener('scroll', handleResize);
+    }
+
+    // Cleanup
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleResize);
+        window.visualViewport.removeEventListener('scroll', handleResize);
+      }
+    };
+  }, []);
+
   const getLastSavedText = () => {
     if (!lastSaved) return 'Not saved yet';
     
@@ -21,7 +54,16 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
   };
 
   return (
-    <footer className="border-t border-border py-2 px-4 text-xs text-muted-foreground bg-muted/10 fixed bottom-0 left-0 right-0 z-50">
+    <footer 
+      className={cn(
+        "border-t border-border py-2 px-4 text-xs text-muted-foreground bg-muted/10",
+        "fixed left-0 right-0 z-50",
+        "transition-all duration-200"
+      )}
+      style={{
+        bottom: viewportHeight ? `${window.innerHeight - viewportHeight}px` : 0,
+      }}
+    >
       <div className="flex justify-between items-center max-w-4xl mx-auto w-full">
         <div className="flex items-center gap-4">
           <div className="flex gap-4">

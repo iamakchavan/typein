@@ -331,7 +331,7 @@ export function Editor() {
           <textarea
             key={currentEntry?.id}
             className={cn(
-              "w-full min-h-[calc(100vh-12rem)] resize-none bg-transparent",
+              "w-full min-h-[calc(var(--viewport-height, 100vh)-12rem)] resize-none bg-transparent",
               "text-lg leading-relaxed outline-none whitespace-pre-wrap",
               "transition-all duration-200",
               "placeholder:text-muted-foreground/50 md:text-[20px] text-[18px]",
