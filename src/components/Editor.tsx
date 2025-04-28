@@ -327,44 +327,47 @@ export function Editor() {
       />
 
       <main className="flex-1 flex flex-col px-4 md:px-8 lg:px-16 py-8 max-w-4xl mx-auto w-full">
-        <textarea
-          key={currentEntry?.id}
-          className={cn(
-            "w-full flex-1 resize-none bg-transparent",
-            "text-lg leading-relaxed outline-none whitespace-pre-wrap",
-            "transition-all duration-200",
-            "placeholder:text-muted-foreground/50 md:text-[20px] text-[18px]",
-            "pb-24",
-            {
-              'font-geist': selectedFont === 'geist',
-              'font-space': selectedFont === 'space',
-              'font-lora': selectedFont === 'lora',
-              'font-instrument-italic': selectedFont === 'instrument-italic',
-              'italic': selectedFont === 'instrument-italic',
-            }
+        <div className="flex-1 relative">
+          <textarea
+            key={currentEntry?.id}
+            className={cn(
+              "w-full h-full resize-none bg-transparent",
+              "text-lg leading-relaxed outline-none whitespace-pre-wrap",
+              "transition-all duration-200",
+              "placeholder:text-muted-foreground/50 md:text-[20px] text-[18px]",
+              "mb-32",
+              {
+                'font-geist': selectedFont === 'geist',
+                'font-space': selectedFont === 'space',
+                'font-lora': selectedFont === 'lora',
+                'font-instrument-italic': selectedFont === 'instrument-italic',
+                'italic': selectedFont === 'instrument-italic',
+              }
+            )}
+            style={{ 
+              fontSize: `${fontSize}px`,
+              minHeight: 'calc(100vh - 8rem)',
+              paddingBottom: '8rem'
+            }}
+            value={state.content}
+            onChange={handleChange}
+            onScroll={handleScroll}
+            placeholder="you can just type things..."
+            autoFocus
+            spellCheck="true"
+          />
+          {showScrollButton && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="fixed bottom-20 right-4 md:right-8 lg:right-16 h-8 w-8 rounded-full shadow-lg opacity-80 hover:opacity-100 transition-opacity"
+              onClick={scrollToBottom}
+            >
+              <ArrowDownToLine className="h-4 w-4" />
+              <span className="sr-only">Scroll to bottom</span>
+            </Button>
           )}
-          style={{ 
-            fontSize: `${fontSize}px`,
-            minHeight: 'calc(100vh - 8rem)'
-          }}
-          value={state.content}
-          onChange={handleChange}
-          onScroll={handleScroll}
-          placeholder="you can just type things..."
-          autoFocus
-          spellCheck="true"
-        />
-        {showScrollButton && (
-          <Button
-            variant="outline"
-            size="icon"
-            className="fixed bottom-20 right-4 md:right-8 lg:right-16 h-8 w-8 rounded-full shadow-lg opacity-80 hover:opacity-100 transition-opacity"
-            onClick={scrollToBottom}
-          >
-            <ArrowDownToLine className="h-4 w-4" />
-            <span className="sr-only">Scroll to bottom</span>
-          </Button>
-        )}
+        </div>
       </main>
       
       <StatusBar 
