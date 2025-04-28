@@ -1,4 +1,4 @@
-# TypeIn ✍️
+# /typeIn ✍️
 
 <div align="center">
   <img src="public/typein.png" alt="TypeIn" width="800"/>
