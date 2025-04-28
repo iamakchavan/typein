@@ -178,7 +178,7 @@ export function Editor() {
   const charCount = (state.content || '').length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
       <header className="h-12 px-4 flex justify-between items-center border-b border-border/10">
         <div className="flex items-center gap-2">
           <Button
@@ -332,14 +332,17 @@ export function Editor() {
           onChange={handleChange}
           onScroll={handleScroll}
           className={cn(
-            "flex-1 w-full max-w-screen-2xl mx-auto px-4 py-4 pb-24 resize-none bg-transparent focus:outline-none",
+            "flex-1 w-full max-w-4xl mx-auto px-4 md:px-8 lg:px-16 py-4 pb-24 resize-none bg-transparent focus:outline-none",
+            "text-lg leading-relaxed whitespace-pre-wrap",
             selectedFont === 'geist' && 'font-geist',
             selectedFont === 'space' && 'font-space',
             selectedFont === 'lora' && 'font-lora',
             selectedFont === 'instrument-italic' && 'font-instrument-italic italic'
           )}
           style={{ fontSize: `${fontSize}px` }}
-          placeholder="you can just type things..."
+          placeholder="Start typing..."
+          spellCheck="true"
+          autoFocus
         />
         
         {showScrollButton && (

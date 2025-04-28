@@ -21,7 +21,7 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
   };
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 border-t border-border py-2 px-4 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm z-50">
+    <footer className="fixed bottom-0 left-0 right-0 border-t border-border py-2 px-4 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm z-50 overflow-x-hidden">
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-4">
           <div className="flex gap-4">
