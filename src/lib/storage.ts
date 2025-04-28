@@ -1,7 +1,6 @@
 import pako from 'pako';
 
 const STORAGE_KEY = 'editor-content';
-const HISTORY_KEY = 'editor-history';
 
 interface StorageData {
   content: string;
