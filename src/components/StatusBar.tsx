@@ -22,11 +22,8 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
 
     handleResize();
     window.visualViewport?.addEventListener('resize', handleResize);
-    window.visualViewport?.addEventListener('scroll', handleResize);
-
     return () => {
       window.visualViewport?.removeEventListener('resize', handleResize);
-      window.visualViewport?.removeEventListener('scroll', handleResize);
     };
   }, []);
 
@@ -37,20 +34,22 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
   };
 
   return (
-    <footer 
+    <div 
       className={cn(
         "border-t border-border py-2 px-4 text-xs text-muted-foreground",
         "fixed left-0 right-0 bottom-0 z-[9999]",
-        "transition-transform duration-200",
-        "bg-background/80 backdrop-blur-sm"
+        "bg-background/80 backdrop-blur-sm",
+        "will-change-transform"
       )}
       style={{
         transform: viewportHeight ? 
           `translateY(-${window.innerHeight - viewportHeight}px)` : 
-          'none'
+          'none',
+        position: 'fixed',
+        bottom: 0
       }}
     >
-      <div className="flex justify-between items-center w-full">
+      <div className="flex justify-between items-center w-full max-w-4xl mx-auto">
         <div className="flex items-center gap-4">
           <div className="flex gap-4">
             <span className="flex items-center">{wordCount} {wordCount === 1 ? 'word' : 'words'}</span>
@@ -84,6 +83,6 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
           />
         </div>
       </div>
-    </footer>
+    </div>
   );
 }

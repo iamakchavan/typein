@@ -326,47 +326,44 @@ export function Editor() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <main className="flex-1 flex flex-col px-4 md:px-8 lg:px-16 py-8 pb-16 max-w-4xl mx-auto w-full">
-        <div className="relative flex-1">
-          <textarea
-            key={currentEntry?.id}
-            className={cn(
-              "w-full h-full resize-none bg-transparent",
-              "text-lg leading-relaxed outline-none whitespace-pre-wrap",
-              "transition-all duration-200",
-              "placeholder:text-muted-foreground/50 md:text-[20px] text-[18px]",
-              "pb-20",
-              {
-                'font-geist': selectedFont === 'geist',
-                'font-space': selectedFont === 'space',
-                'font-lora': selectedFont === 'lora',
-                'font-instrument-italic': selectedFont === 'instrument-italic',
-                'italic': selectedFont === 'instrument-italic',
-              }
-            )}
-            style={{ 
-              fontSize: `${fontSize}px`,
-              minHeight: 'calc(100vh - 12rem)'
-            }}
-            value={state.content}
-            onChange={handleChange}
-            onScroll={handleScroll}
-            placeholder="you can just type things..."
-            autoFocus
-            spellCheck="true"
-          />
-          {showScrollButton && (
-            <Button
-              variant="outline"
-              size="icon"
-              className="fixed bottom-20 right-4 md:right-8 lg:right-16 h-8 w-8 rounded-full shadow-lg opacity-80 hover:opacity-100 transition-opacity"
-              onClick={scrollToBottom}
-            >
-              <ArrowDownToLine className="h-4 w-4" />
-              <span className="sr-only">Scroll to bottom</span>
-            </Button>
+      <main className="flex-1 flex flex-col px-4 md:px-8 lg:px-16 py-8 pb-24 max-w-4xl mx-auto w-full overflow-y-auto relative">
+        <textarea
+          key={currentEntry?.id}
+          className={cn(
+            "w-full h-full resize-none bg-transparent",
+            "text-lg leading-relaxed outline-none whitespace-pre-wrap",
+            "transition-all duration-200",
+            "placeholder:text-muted-foreground/50 md:text-[20px] text-[18px]",
+            {
+              'font-geist': selectedFont === 'geist',
+              'font-space': selectedFont === 'space',
+              'font-lora': selectedFont === 'lora',
+              'font-instrument-italic': selectedFont === 'instrument-italic',
+              'italic': selectedFont === 'instrument-italic',
+            }
           )}
-        </div>
+          style={{ 
+            fontSize: `${fontSize}px`,
+            minHeight: '100%'
+          }}
+          value={state.content}
+          onChange={handleChange}
+          onScroll={handleScroll}
+          placeholder="you can just type things..."
+          autoFocus
+          spellCheck="true"
+        />
+        {showScrollButton && (
+          <Button
+            variant="outline"
+            size="icon"
+            className="fixed bottom-20 right-4 md:right-8 lg:right-16 h-8 w-8 rounded-full shadow-lg opacity-80 hover:opacity-100 transition-opacity"
+            onClick={scrollToBottom}
+          >
+            <ArrowDownToLine className="h-4 w-4" />
+            <span className="sr-only">Scroll to bottom</span>
+          </Button>
+        )}
       </main>
       
       <StatusBar 
