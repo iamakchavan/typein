@@ -14,42 +14,25 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
   const [viewportHeight, setViewportHeight] = useState<number | null>(null);
 
   useEffect(() => {
-    // Handle viewport changes (e.g., when keyboard appears)
     const handleResize = () => {
       if (window.visualViewport) {
         setViewportHeight(window.visualViewport.height);
-        document.documentElement.style.setProperty(
-          '--viewport-height',
-          `${window.visualViewport.height}px`
-        );
       }
     };
 
-    // Initial setup
     handleResize();
+    window.visualViewport?.addEventListener('resize', handleResize);
+    window.visualViewport?.addEventListener('scroll', handleResize);
 
-    // Add event listeners
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', handleResize);
-      window.visualViewport.addEventListener('scroll', handleResize);
-    }
-
-    // Cleanup
     return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', handleResize);
-        window.visualViewport.removeEventListener('scroll', handleResize);
-      }
+      window.visualViewport?.removeEventListener('resize', handleResize);
+      window.visualViewport?.removeEventListener('scroll', handleResize);
     };
   }, []);
 
   const getLastSavedText = () => {
     if (!lastSaved) return 'Not saved yet';
-    
-    if (isDirty) {
-      return 'Saving...';
-    }
-    
+    if (isDirty) return 'Saving...';
     return `Saved ${formatDistanceToNow(lastSaved, { addSuffix: true })}`;
   };
 
@@ -57,12 +40,14 @@ export function StatusBar({ wordCount, charCount, lastSaved, isDirty, shortcuts 
     <footer 
       className={cn(
         "border-t border-border py-2 px-4 text-xs text-muted-foreground",
-        "fixed left-0 right-0 z-50",
-        "transition-all duration-200",
+        "fixed left-0 right-0 bottom-0 z-[9999]",
+        "transition-transform duration-200",
         "bg-background/80 backdrop-blur-sm"
       )}
       style={{
-        bottom: viewportHeight ? `${window.innerHeight - viewportHeight}px` : 0,
+        transform: viewportHeight ? 
+          `translateY(-${window.innerHeight - viewportHeight}px)` : 
+          'none'
       }}
     >
       <div className="flex justify-between items-center w-full">
