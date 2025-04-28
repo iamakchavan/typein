@@ -327,15 +327,14 @@ export function Editor() {
       />
 
       <main className="flex-1 flex flex-col px-4 md:px-8 lg:px-16 py-8 max-w-4xl mx-auto w-full">
-        <div className="flex-1 relative">
+        <div className="relative h-full">
           <textarea
             key={currentEntry?.id}
             className={cn(
-              "w-full h-full resize-none bg-transparent",
+              "w-full min-h-[calc(100vh-10rem)] resize-none bg-transparent",
               "text-lg leading-relaxed outline-none whitespace-pre-wrap",
               "transition-all duration-200",
               "placeholder:text-muted-foreground/50 md:text-[20px] text-[18px]",
-              "mb-32",
               {
                 'font-geist': selectedFont === 'geist',
                 'font-space': selectedFont === 'space',
@@ -344,11 +343,7 @@ export function Editor() {
                 'italic': selectedFont === 'instrument-italic',
               }
             )}
-            style={{ 
-              fontSize: `${fontSize}px`,
-              minHeight: 'calc(100vh - 8rem)',
-              paddingBottom: '8rem'
-            }}
+            style={{ fontSize: `${fontSize}px` }}
             value={state.content}
             onChange={handleChange}
             onScroll={handleScroll}
