@@ -326,34 +326,42 @@ export function Editor() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col relative">
         <textarea
           value={state.content}
           onChange={handleChange}
           onScroll={handleScroll}
           className={cn(
-            "flex-1 w-full max-w-[900px] mx-auto px-4 py-6 resize-none bg-transparent focus:outline-none",
-            "mb-[calc(2.5rem+env(keyboard-inset-height,0px))] pb-12",
-            {
-              'font-geist': selectedFont === 'geist',
-              'font-space': selectedFont === 'space',
-              'font-lora': selectedFont === 'lora',
-              'font-instrument-italic italic': selectedFont === 'instrument-italic',
-            }
+            "flex-1 w-full max-w-screen-2xl mx-auto px-4 py-4 pb-24 resize-none bg-transparent focus:outline-none",
+            selectedFont === 'geist' && 'font-geist',
+            selectedFont === 'space' && 'font-space',
+            selectedFont === 'lora' && 'font-lora',
+            selectedFont === 'instrument-italic' && 'font-instrument-italic italic'
           )}
           style={{ fontSize: `${fontSize}px` }}
           placeholder="Start typing..."
         />
+        
+        {showScrollButton && (
+          <Button
+            variant="outline"
+            size="icon"
+            className="fixed bottom-16 right-4 z-40 bg-background/80 backdrop-blur-sm"
+            onClick={scrollToBottom}
+          >
+            <ArrowDownToLine className="h-4 w-4" />
+          </Button>
+        )}
       </main>
-
+      
       <StatusBar
         wordCount={wordCount}
         charCount={charCount}
         lastSaved={state.lastSaved}
         isDirty={state.isDirty}
         shortcuts={[
-          { icon: <Undo2 className="h-3 w-3" />, combo: '⌘ + Z' },
-          { icon: <Redo2 className="h-3 w-3" />, combo: '⌘ + Y' },
+          { icon: <Undo2 className="h-3 w-3" />, combo: '⌘Z' },
+          { icon: <Redo2 className="h-3 w-3" />, combo: '⌘Y' },
         ]}
       />
     </div>
