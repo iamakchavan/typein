@@ -340,7 +340,7 @@ export function Editor() {
             selectedFont === 'instrument-italic' && 'font-instrument-italic italic'
           )}
           style={{ fontSize: `${fontSize}px` }}
-          placeholder="Start typing..."
+          placeholder="you can just type things..."
           spellCheck="true"
           autoFocus
         />
